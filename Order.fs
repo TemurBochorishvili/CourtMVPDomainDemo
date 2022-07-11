@@ -3,19 +3,21 @@ type State<'IntercessionId, 'LibelId, 'CaseId> =
 
 and Order<'IntercessionId, 'LibelId, 'CaseId> =
     { Status: OrderStatus;
+      Acceptance: Acceptance voption;
       Type: OrderType<'IntercessionId, 'LibelId, 'CaseId> }
 
 and OrderStatus =
 | New
 | Final of FinalOrderStatus
 
-and FinalOrderStatus =
-    { PublishTime: unit;
-      Type: FinalOrderStatusType }
+and Acceptance = Acceptance
 
-and FinalOrderStatusType =
-| Unpublished
+and FinalOrderStatus =
+| Unpublished of UnpublishedFinalOrder
 | Published
+
+and UnpublishedFinalOrder =
+    { Time: unit }
 
 and OrderType<'IntercessionId, 'LibelId, 'CaseId> =
 | AttachedToIntercession of 'IntercessionId

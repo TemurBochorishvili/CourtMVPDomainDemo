@@ -2,13 +2,7 @@ type State<'CaseId, 'JudgeId, 'AvouchId> =
     State of Intercession<'CaseId, 'JudgeId, 'AvouchId> voption
 
 and Intercession<'CaseId, 'JudgeId, 'AvouchId> =
-    { Status: IntercessionStatus<'CaseId, 'JudgeId>;
-    //   Avouch: 'AvouchId voption ???? რა უნდა მივაბათ
-       }
-
-// განცხადებას ჰქონდეს ინფო რომელი შუამდგომლობისაა
-// მიზეზი           შედეგი
-// შედეგმა უნდა თქვას რომელი მიზეზისაა
+    { Status: IntercessionStatus<'CaseId, 'JudgeId> }
 
 and IntercessionStatus<'CaseId, 'JudgeId> =
 | New

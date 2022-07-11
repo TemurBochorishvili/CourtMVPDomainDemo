@@ -2,11 +2,27 @@ type State<'IntercessionId, 'LibelId, 'CaseId> =
     State of Order<'IntercessionId, 'LibelId, 'CaseId> voption
 
 and Order<'IntercessionId, 'LibelId, 'CaseId> =
-| Intercession of 'IntercessionId
-| Libel of 'LibelId
-| Case of 'CaseId
-| OnTheFly
-// განჩინება რომელიც წინაპირობის გარეშე შეუძლია გამოიტანოს + (ვიფიქრო)
+    { Status: OrderStatus;
+      Type: OrderType<'IntercessionId, 'LibelId, 'CaseId> }
+
+and OrderStatus =
+| New
+| Final of FinalOrderStatus
+
+and FinalOrderStatus =
+    { PublishTime: unit;
+      Type: FinalOrderStatusType }
+
+and FinalOrderStatusType =
+| Unpublished
+| Published
+
+and OrderType<'IntercessionId, 'LibelId, 'CaseId> =
+| AttachedToIntercession of 'IntercessionId
+| AttachedToLibel of 'LibelId
+| AttachedToCase of 'CaseId
+
+// განჩინება რომელიც წინაპირობის გარეშე შეუძლია გამოიტანოს +
 // განჩინებას ეხლა აქ ესეთი სთეითები:
     // შექმნილი
     // საბოლოო (საბოლოო შეიძლება მისცეს რო 2 საათში გაუშვიო და ამ 2 საათში შეუძლია საბოლოო მოხსნას)

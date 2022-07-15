@@ -1,41 +1,61 @@
-type State<'CaseId, 'JudgeId, 'AvouchId> =
-    State of Intercession<'CaseId, 'JudgeId, 'AvouchId> voption
+type State<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
+    State of Intercession<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> voption
 
-and Intercession<'CaseId, 'JudgeId, 'AvouchId> =
-    { Status: IntercessionStatus<'CaseId, 'JudgeId> }
+and Intercession<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
+| DistrubutedSecondaryOffice of DistrubutedSecondaryOfficeIntercession<'SecondaryOfficeEmployeeKey>
+| DistributedToJudge of DistributedToJudgeIntercession<'JudgeKey>
+| AttachedToTheCase of AttachedToTheCaseIntercession<'CaseKey>
 
-and IntercessionStatus<'CaseId, 'JudgeId> =
-| New
-| DistributedToSecondaryOffice
-| AttachedToTheCase of AttachedToTheCase<'CaseId>
-| DistributedToJudge of DistributedToJudge<'JudgeId>
+and DistrubutedSecondaryOfficeIntercession<'SecondaryOfficeEmployeeKey> =
+    { Key: 'SecondaryOfficeEmployeeKey }
 
-and AttachedToTheCase<'CaseId> =
-    { // (Approve/Reject)
-      CaseId: 'CaseId;
-      Approval: bool; // მოჟნა Date ის Option
-      Revoked: bool }
+and DistributedToJudgeIntercession<'JudgeKey> =
+    { Key: 'JudgeKey }
 
-and DistributedToJudge<'JudgeId> =
-    { JudgeId: 'JudgeId;
-      Status: DistrubutedToJudgeStatus }
+and AttachedToTheCaseIntercession<'CaseKey> =
+    { Key: 'CaseKey;
+      Approval: bool }
 
-and DistrubutedToJudgeStatus =
-| Consummated
-| Disregard
 
-type Command =
-| Arrive
-| DistributeToSecondaryOffice
-| AttachToTheCase
-| DistributeToJudge
+
+
+type Command<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
+| DistributeToSecondaryOffice of DistributeToSecondaryOfficeCommand<'SecondaryOfficeEmployeeKey>
+| DistributeToJudge of DistributedToJudgeCommand<'JudgeKey>
+| AttachToTheCase of AttachedToTheCaseCommand<'CaseKey>
+| Approve
+| Reject
 | Avoid
 | Disregard
 
-type Event =
-| Arrived
-| DistributedToSecondaryOffice
-| AttachedToTheCase
-| DistributedToJudge
+and DistributeToSecondaryOfficeCommand<'SecondaryOfficeEmployeeKey> =
+    { Key: 'SecondaryOfficeEmployeeKey }
+
+and DistributedToJudgeCommand<'JudgeKey> =
+    { Key: 'JudgeKey }
+
+and AttachedToTheCaseCommand<'CaseKey> =
+    { Key: 'CaseKey }
+
+
+
+
+type Event<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
+| DistributedToSecondaryOffice of DistributedToSecondaryOfficeEvent<'SecondaryOfficeEmployeeKey>
+| DistributedToJudge of DistributedToJudgeEvent<'JudgeKey>
+| AttachedToTheCase of AttachedToTheCaseEvent<'CaseKey>
+| Approved 
 | Avoided
 | Disregarded
+
+and DistributedToSecondaryOfficeEvent<'SecondaryOfficeEmployeeKey> =
+    { Key: 'SecondaryOfficeEmployeeKey;
+      Time: unit }
+
+and DistributedToJudgeEvent<'JudgeKey> =
+    { Key: 'JudgeKey;
+      Time: unit }
+
+and AttachedToTheCaseEvent<'CaseKey> =
+    { Key: 'CaseKey;
+      Time: unit }

@@ -30,10 +30,23 @@ and CreateEvidenceCommand<'CaseKey> =
 
 type Event<'CaseKey> =
 | CreatedEvidence of CreatedEvidenceEvent<'CaseKey>
-| MarkedEvidenceAsAdmissable
-| MarkedEvidenceAsInadmissable
-| MarkedEvidenceAsDisputable
-| MarkedEvidenceAsApparent
+| MarkedEvidenceAsAdmissable of MarkedEvidenceAsAdmissableEvent
+| MarkedEvidenceAsInadmissable of MarkedEvidenceAsInadmissableEvent
+| MarkedEvidenceAsDisputable of MarkedEvidenceAsDisputableEvent
+| MarkedEvidenceAsApparent of MarkedEvidenceAsApparentEvent
 
 and CreatedEvidenceEvent<'CaseKey> =
-    { Key: 'CaseKey }
+    { Key: 'CaseKey;
+      Time: unit }
+
+and MarkedEvidenceAsAdmissableEvent =
+    { Time: unit }
+
+and MarkedEvidenceAsInadmissableEvent =
+    { Time: unit }
+
+and MarkedEvidenceAsDisputableEvent =
+    { Time: unit }
+
+and MarkedEvidenceAsApparentEvent =
+    { Time: unit }

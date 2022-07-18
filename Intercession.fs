@@ -44,9 +44,9 @@ type Event<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
 | DistributedToSecondaryOffice of DistributedToSecondaryOfficeEvent<'SecondaryOfficeEmployeeKey>
 | DistributedToJudge of DistributedToJudgeEvent<'JudgeKey>
 | AttachedToTheCase of AttachedToTheCaseEvent<'CaseKey>
-| Approved 
-| Avoided
-| Disregarded
+| Approved of ApprovedEvent
+| Avoided of AvoidedEvent
+| Disregarded of DisregardedEvent
 
 and DistributedToSecondaryOfficeEvent<'SecondaryOfficeEmployeeKey> =
     { Key: 'SecondaryOfficeEmployeeKey;
@@ -59,3 +59,12 @@ and DistributedToJudgeEvent<'JudgeKey> =
 and AttachedToTheCaseEvent<'CaseKey> =
     { Key: 'CaseKey;
       Time: unit }
+
+and ApprovedEvent =
+    { Time: unit }
+
+and AvoidedEvent =
+    { Time: unit }
+
+and DisregardedEvent =
+    { Time: unit }

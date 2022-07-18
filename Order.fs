@@ -50,18 +50,37 @@ and CreateCaseOrderCommand<'CaseKey> =
 
 type Event<'IntercessionKey, 'CaseKey> =
 | CreatedIntercessionOrder of CreatedIntercessionOrderEvent<'IntercessionKey>
-| MarkedIntercessionOrderAsFinal
-| PublishedIntercessionOrder
-| UnmarkedIntercessionOrderFinal
+| MarkedIntercessionOrderAsFinal of MarkedIntercessionOrderAsFinalEvent
+| PublishedIntercessionOrder of PublishedIntercessionOrderEvent
+| UnmarkedIntercessionOrderFinal of UnmarkedIntercessionOrderFinalEvent
 | CreateedCaseOrder of CreatedCaseOrderEvent<'CaseKey>
-| MarkedCaseOrderAsFinal
-| PublishedCaseOrder
-| UnmarkedCaseOrderFinal
+| MarkedCaseOrderAsFinal of MarkedCaseOrderAsFinalEvent
+| PublishedCaseOrder of PublishedCaseOrderEvent
+| UnmarkedCaseOrderFinal of UnmarkedCaseOrderFinalEvent
 
 and CreatedIntercessionOrderEvent<'IntercessionKey> =
     { Key: 'IntercessionKey;
       Time: unit }
 
+and MarkedIntercessionOrderAsFinalEvent =
+    { Time: unit }
+
+and PublishedIntercessionOrderEvent =
+    { Time: unit }
+
+and UnmarkedIntercessionOrderFinalEvent =
+    { Time: unit }
+
 and CreatedCaseOrderEvent<'CaseKey> =
     { Key: 'CaseKey;
       Time: unit }
+
+and MarkedCaseOrderAsFinalEvent =
+    { Time: unit }
+
+and PublishedCaseOrderEvent =
+    { Time: unit }
+
+and UnmarkedCaseOrderFinalEvent =
+    { Time: unit }
+

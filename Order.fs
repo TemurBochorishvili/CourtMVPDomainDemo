@@ -59,7 +59,9 @@ type Event<'IntercessionKey, 'CaseKey> =
 | UnmarkedCaseOrderFinal
 
 and CreatedIntercessionOrderEvent<'IntercessionKey> =
-    { Key: 'IntercessionKey }
+    { Key: 'IntercessionKey;
+      Time: unit }
 
 and CreatedCaseOrderEvent<'CaseKey> =
-    { Key: 'CaseKey }
+    { Key: 'CaseKey;
+      Time: unit }

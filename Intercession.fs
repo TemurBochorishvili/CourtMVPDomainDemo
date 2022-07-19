@@ -1,16 +1,22 @@
-type State<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
-    State of Intercession<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> voption
+// Key ბი მოვუშალო
+type State<'Court, 'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
+    State of Intercession<'Court, 'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> voption
 
-and Intercession<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
-| DistrubutedSecondaryOffice of DistrubutedSecondaryOfficeIntercession<'SecondaryOfficeEmployeeKey>
-| DistributedToJudge of DistributedToJudgeIntercession<'JudgeKey>
+and Intercession<'Court, 'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
+    { Court: 'Court;
+      Status: IntercessionStatus<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> }
+
+and IntercessionStatus<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
+| AtSecondaryOffice of AtSecondaryOfficeIntercession<'SecondaryOfficeEmployeeKey>
+| AtJudge of AtJudgeIntercession<'JudgeKey>
 | AttachedToTheCase of AttachedToTheCaseIntercession<'CaseKey>
+// გამოთხოვილი
 
-and DistrubutedSecondaryOfficeIntercession<'SecondaryOfficeEmployeeKey> =
-    { Key: 'SecondaryOfficeEmployeeKey }
+and AtSecondaryOfficeIntercession<'SecondaryOfficeEmployeeKey> = // მეორად კანცელარიაშია მარა არავისთან
+    { Key: 'SecondaryOfficeEmployeeKey voption }
 
-and DistributedToJudgeIntercession<'JudgeKey> =
-    { Key: 'JudgeKey }
+and AtJudgeIntercession<'JudgeKey> =
+    { Key: 'JudgeKey voption }
 
 and AttachedToTheCaseIntercession<'CaseKey> =
     { Key: 'CaseKey;
@@ -20,8 +26,13 @@ and AttachedToTheCaseIntercession<'CaseKey> =
 
 
 type Command<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
+| WavidaMeoradshi
+| GanawildaMeoradisTanamSromelze
+// თუ განრიგიდან ამოაგდეს
 | DistributeToSecondaryOffice of DistributeToSecondaryOfficeCommand<'SecondaryOfficeEmployeeKey>
-| DistributeToJudge of DistributedToJudgeCommand<'JudgeKey>
+// | DistributeToJudge of DistributedToJudgeCommand<'JudgeKey>
+| WavidaGasanawilebelshi
+| GanawildaMosamarTleze
 | AttachToTheCase of AttachedToTheCaseCommand<'CaseKey>
 | Approve
 | Reject

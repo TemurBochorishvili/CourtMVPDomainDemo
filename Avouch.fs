@@ -1,11 +1,12 @@
-type State<'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> =
-    State of Avouch<'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> voption
+// Key ბი მოვუშალო
+type State<'CourtKey, 'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> =
+    State of Avouch<'CourtKey, 'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> voption
 
-and Avouch<'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> =
-    { Status: AvouchStatus<'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> }
+and Avouch<'CourtKey, 'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> =
+    { Court: 'CourtKey;
+      Status: AvouchStatus<'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> }
 
 and AvouchStatus<'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> =
-| New
 | DistributedToSecondaryOffice of DistributeAvouchToSecondaryOffice<'SecondaryOfficeEmployeeKey>
 | Attached of AvouchAttachStatus<'IntercessionKey, 'CaseKey>
 
@@ -20,14 +21,15 @@ and AvouchType<'IntercessionKey, 'CaseKey> =
 | Intercession of 'IntercessionKey
 | Case of 'CaseKey
 
-and ReactedAvouch = ReactedAvouch
+and ReactedAvouch = ReactedAvouch // გიორგას ვკითხოთ გვჭირდება თუ არა რეაგირება აქ. P.S ეს უბრალო ინფოა და არანირ დოკ ფლოუში მონაწილეობას არ იღებს
 
 
 
 
 type Command<'SecondaryOfficeEmployeeKey, 'IntercessionKey, 'CaseKey> =
-| CreateAvouch
-| DistributeAvouchToSecondaryOffice of DistributeAvouchToSecondaryOfficeCommand<'SecondaryOfficeEmployeeKey>
+// | DistributeAvouchToSecondaryOffice of DistributeAvouchToSecondaryOfficeCommand<'SecondaryOfficeEmployeeKey>
+| WavidaMeoradshi
+| GanawildaMeoradisTanamSromelze
 | AttachAvouchToIntercession of AttachAvouchToIntercessionCommand<'IntercessionKey>
 | AttachAvouchToCase of AttachAvouchToCaseCommand<'CaseKey>
 | ReactOnAvouch

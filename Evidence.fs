@@ -1,3 +1,4 @@
+// Key ბი მოვუშალო
 type State<'CaseKey> = State of Evidence<'CaseKey> voption
 
 and Evidence<'CaseKey> =
@@ -8,7 +9,7 @@ and EvidenceAdmissibility =
 | Inadmissible
 | Admissible of AdmissibleEvidence
 
-and AdmissibleEvidence =
+and AdmissibleEvidence = // სადავო უდავოს შეიძლება დოკ ფლოუს ნაწილი საერთოდ არ იყოს
 | Disputable
 | Apparent
 

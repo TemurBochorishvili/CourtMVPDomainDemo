@@ -1,8 +1,11 @@
-type State<'IntercessionKey, 'CaseKey> =
-    State of Order<'IntercessionKey, 'CaseKey> voption
+// Key ბი მოვუშალო
+type State<'CourtKey, 'JudgeKey, 'IntercessionKey, 'CaseKey> =
+    State of Order<'CourtKey, 'JudgeKey, 'IntercessionKey, 'CaseKey> voption
 
-and Order<'IntercessionKey, 'CaseKey> =
-    { Type: OrderType<'IntercessionKey, 'CaseKey>;
+and Order<'CourtKey, 'JudgeKey, 'IntercessionKey, 'CaseKey> =
+    { Court: 'CourtKey;
+      Judge: 'JudgeKey;
+      Type: OrderType<'IntercessionKey, 'CaseKey>;
       Status: OrderStatus }
 
 and OrderType<'IntercessionKey, 'CaseKey> =
@@ -31,13 +34,10 @@ and FinalOrderStatus =
 
 type Command<'IntercessionKey, 'CaseKey> =
 | CreateIntercessionOrder of CreateIntercessionOrderCommand<'IntercessionKey>
-| MarkIntercessionOrderAsFinal
-| PublishIntercessionOrder
-| UnmarkIntercessionOrderFinal
 | CreateCaseOrder of CreateCaseOrderCommand<'CaseKey>
-| MarkCaseOrderAsFinal
-| PublishCaseOrder
-| UnmarkCaseOrderFinal
+| MarkOrderAsFinal
+| PublishOrder
+| UnmarkOrderFinal
 
 and CreateIntercessionOrderCommand<'IntercessionKey> =
     { Key: 'IntercessionKey }

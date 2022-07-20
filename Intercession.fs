@@ -29,7 +29,6 @@ type Command<'SecondaryOfficeEmployeeKey, 'JudgeKey, 'CaseKey> =
 | WavidaMeoradshi
 | GanawildaMeoradisTanamSromelze
 // თუ განრიგიდან ამოაგდეს
-| DistributeToSecondaryOffice of DistributeToSecondaryOfficeCommand<'SecondaryOfficeEmployeeKey>
 // | DistributeToJudge of DistributedToJudgeCommand<'JudgeKey>
 | WavidaGasanawilebelshi
 | GanawildaMosamarTleze
